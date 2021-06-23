@@ -37,7 +37,7 @@ We assume that all the input data is rigidly aligned. Therefore, we provide refe
 8. Point on the chin
 The following image shows these landmarks. The centroids.txt file consists of 3D landmarks with coordinates x, y, z. Each file consists of 8 lines. Each line consists of the 3 values in 'x y z' order corresponding to the landmarks described above separated by a space.
 
-<img src="https://github.com/tarun738/i3DMM_pre_release/blob/main/repoimgs/lms.png" width="100"/>
+<img src="repoimgs/lms.png" width="100"/>
 
 Please see our paper for more information on rigid alignment.
 
@@ -64,7 +64,7 @@ The centroids.txt file contains landmarks as described in the alignment step. Ad
 8. Right ear right
 These 8 landmarks are as shown in the following image. The file is organized similar to centroids.txt. Please see the a mesh folder in the dataset for an example.
 
-<img src="https://github.com/tarun738/i3DMM_pre_release/blob/main/repoimgs/earLeft.png" width="100"/> <img src="https://github.com/tarun738/i3DMM_pre_release/blob/main/repoimgs/earRight.png" width="110"/>
+<img src="repoimgs/earLeft.png" width="100"/> <img src="repoimgs/earRight.png" width="110"/>
 
 Once the dataset is prepared, create the splits as shown in model/headModel/splits/\*.json files. These files are similar to the splits files in DeepSDF.
 
