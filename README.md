@@ -113,7 +113,7 @@ To save as a mesh:
 ```
 python fit_i3DMM_to_mesh.py -e headModel -c latest -d data -s <path to splits file> --imNM False
 ```
-Test dataset can be downloaded with this [link](TODO). Please extract and move the 'heads' folder to dataset folder.
+Test dataset can be downloaded with this [link](https://gvv-assets.mpi-inf.mpg.de/i3DMM). Please extract and move the 'heads' folder to dataset folder.
 
 
 ### Citation
