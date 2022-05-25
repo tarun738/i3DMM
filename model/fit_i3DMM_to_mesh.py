@@ -314,12 +314,12 @@ if __name__ == "__main__":
             decoder_col.load_state_dict(saved_model_state_col["model_state_dict"])
         else:
             saved_model_epoch = saved_model_state_ref["epoch"]
-            saved_model_state_col = torch.load(
-                os.path.join(
-                    exp_directory, ws.model_params_subdir, args.checkpoint + "_col.pth"
-                )
-            )
-            decoder_col.load_state_dict(saved_model_state_col["model_state_dict"])
+        #    saved_model_state_col = torch.load(
+        #        os.path.join(
+        #            exp_directory, ws.model_params_subdir, args.checkpoint + "_col.pth"
+        #        )
+        #    )
+        #    decoder_col.load_state_dict(saved_model_state_col["model_state_dict"])
 
 
         decoder_deform = decoder_deform.module.cuda()
