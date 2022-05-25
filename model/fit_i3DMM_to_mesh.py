@@ -336,6 +336,7 @@ if __name__ == "__main__":
         with open(train_split_file, "r") as f:
             trainingSplit = json.load(f)
         training_npz_filenames = i3DMM.data.get_instance_filenames(args.data_source, trainingSplit)
+        print(training_npz_filenames)
         _, IDsList, _, _, latentMap = train.defineLatentSpace(training_npz_filenames)
         _, _, _, latentMapColor = train.defineLatentSpaceColor(training_npz_filenames)
 
@@ -449,10 +450,11 @@ if __name__ == "__main__":
                     start = time.time()
                     latent_mean_geom = torch.ones(1, int(latent_size)).normal_(mean=0, std=0.1).cuda()
                     latent_mean_geom.requires_grad = True
-                    latentLoadedColor = ws.load_latent_vectors_color(args.experiment_directory,args.checkpoint);
 
                     latent_mean_col = torch.cat([torch.ones(1, int(latent_size*2/3)).normal_(mean=0, std=0.1).cuda()])
-                    latent_mean_col = torch.cat([latentLoadedColor[0,:],latentLoadedColor[-1,:]])
+                    
+                    #latentLoadedColor = ws.load_latent_vectors_color(args.experiment_directory,args.checkpoint);
+                    #latent_mean_col = torch.cat([latentLoadedColor[0,:],latentLoadedColor[-1,:]])
                     with torch.no_grad():
                         i3DMM.mesh.create_mesh(
                             decoder_deform, decoder_ref, decoder_col, latent_mean_geom, latent_mean_col, [], 0, [], refMeshFile, True, N=256, max_batch=int(2 ** 19)

@@ -1036,7 +1036,7 @@ def main_function(experiment_directory, continue_from, batch_split, train_color,
                     logging.info("col_loss = {}".format(chunk_loss_col.item()))
                     logging.info("geom_loss = {}".format(chunk_loss_geom.item()))
                 # geometry backpropagation
-                elif train_geometry == 1:
+                elif train_geometry == 1 and not train_reference_only == 1: 
                     chunk_loss_geom.backward()
                     logging.info("geom_loss = {}".format(chunk_loss_geom.item()))
                 # color backpropagation
