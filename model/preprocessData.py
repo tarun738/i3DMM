@@ -94,7 +94,7 @@ def meshToColorSDF(tupFiles):
     colors = ou.fetch_colors(texture,uvs)
     colors = (colors/255.0) - 0.5
     # ou.obj_write("samples.obj",np.append(points,colors,axis=1))
-    samples = sampleSDFsFromMesh(mesh, numSamples=500000 , nsDev=0.0001, nsPer=0.94, lms=poi_centroids, lmProb=0.8)
+    samples = sampleSDFsFromMesh(mesh, numSamples=500000 , nsDev=0.05, nsPer=0.94, lms=poi_centroids, lmProb=0.8)
     pos = samples[samples[:,3]>=0,:]
     neg = samples[samples[:,3]<0,:]
     # load sdf samples

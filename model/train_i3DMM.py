@@ -495,7 +495,6 @@ def main_function(experiment_directory, continue_from, batch_split, train_color,
     decoder_col = torch.nn.DataParallel(decoder_col)
 
     num_epochs = specs["NumEpochs"]
-    log_frequency = get_spec_with_default(specs, "LogFrequency", 10)
 
     with open(train_split_file, "r") as f:
         train_split = json.load(f)
@@ -531,16 +530,21 @@ def main_function(experiment_directory, continue_from, batch_split, train_color,
     num_data_loader_threads = get_spec_with_default(specs, "DataLoaderThreads", 1)
     logging.debug("loading data with {} threads".format(num_data_loader_threads))
 
-    sdf_loader = data_utils.DataLoader(
-        sdf_dataset,
-        batch_size=scene_per_batch,
-        shuffle=True,
-        num_workers=num_data_loader_threads,
-        drop_last=False,
-    )
-    logging.debug("torch num_threads: {}".format(torch.get_num_threads()))
-
     num_scenes = len(sdf_dataset)
+    if num_scenes == 1:
+        sdf_loader = sdf_dataset
+        log_frequency = get_spec_with_default(specs, "LogFrequency", 100)
+    else:
+        sdf_loader = data_utils.DataLoader(
+            sdf_dataset,
+            batch_size=scene_per_batch,
+            shuffle=True,
+            num_workers=num_data_loader_threads,
+            drop_last=False,
+        )
+        log_frequency = get_spec_with_default(specs, "LogFrequency", 10)
+        logging.debug("torch num_threads: {}".format(torch.get_num_threads()))
+
 
     if addEarCorrespondences:
         num_centroids = 16
@@ -897,6 +901,8 @@ def main_function(experiment_directory, continue_from, batch_split, train_color,
             adjust_learning_rate(lr_schedules, optimizer_ref, epoch)
 
         for sdf_data, indices in sdf_loader:
+            if num_scenes == 1:
+                indices = torch.tensor([indices])
             # Process the input data
             sdf_data = sdf_data.reshape(-1, 7).float()
 
